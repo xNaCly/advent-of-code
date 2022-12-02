@@ -36,10 +36,7 @@ func Part1_calcIfWon(sign1 sign, sign2 sign) int {
 	}
 }
 
-func Part1_calculatePoints(line string) int {
-	signs := strings.Split(strings.TrimSpace(line), " ")
-	firstSign := charSignMap[rune(signs[0][0])]
-	secondSign := charSignMap[rune(signs[1][0])]
+func Part1_calculatePoints(firstSign sign, secondSign sign) int {
 	signSum := secondSign.worth
 	resultSum := Part1_calcIfWon(firstSign, secondSign)
 	return resultSum + signSum
@@ -52,7 +49,10 @@ func Part1_workFiles(content string) {
 		if len(line) < 3 {
 			continue
 		}
-		value := Part1_calculatePoints(line)
+		signs := strings.Split(strings.TrimSpace(line), " ")
+		firstSign := charSignMap[rune(signs[0][0])]
+		secondSign := charSignMap[rune(signs[1][0])]
+		value := Part1_calculatePoints(firstSign, secondSign)
 		sum += value
 	}
 	println(sum)

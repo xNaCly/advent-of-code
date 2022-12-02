@@ -11,16 +11,14 @@ func readFile(path string) string {
 
 func main() {
 	// set false to run part 2
-	part1 := true
+	part1 := false
 	file_path := "input.txt"
 
 	println("running for file=", file_path)
 	content := readFile(file_path)
 	if part1 {
 		Part1_workFiles(content)
-		os.Exit(0)
+	} else {
+		Part2_workFile(content)
 	}
-	//  else {
-
-	// }
 }
