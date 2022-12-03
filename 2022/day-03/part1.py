@@ -1,7 +1,7 @@
-file_path = "input.txt"
-
-with open(file=file_path, mode="r", encoding="utf-8") as f:
-    lines = [l for l in map(lambda x: x.strip(), f.readlines())]
+def get_lines(file_path: str) -> list[str]:
+    with open(file=file_path, mode="r", encoding="utf-8") as f:
+        return [l for l in map(lambda x: x.strip(), f.readlines())]
+    
 
 priority_lookup = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ]
 
@@ -13,9 +13,9 @@ def generate_occurences_hash_map(half_of_line, hashmap):
         else:
             hashmap[c] = 1
 
-def work_lines(lin) -> int:
+def work_lines(lines: list[str]) -> int:
     prio_sum = 0
-    for l in lin:
+    for l in lines:
         first_half_map = {}
         second_half_map = {}
 
@@ -37,4 +37,5 @@ def work_lines(lin) -> int:
 
     return prio_sum
 
-print(work_lines(lines))
+# file_path = "input.txt"
+# print(work_lines(get_lines(file_path)))
