@@ -3,7 +3,7 @@ import sys
 import os
 from cookie import COOKIE
 
-HOST = "https://adventofcode.com/2022/day"
+HOST = "https://adventofcode.com"
 
 def parse_args() -> str:
     args = sys.argv # get cli arguments
@@ -16,23 +16,23 @@ def parse_args() -> str:
     except:
         raise ValueError("Not enough arguments")
 
-    if argument[0] == "day":
+    if argument[0] == "i":
         return argument[1].strip()
     else:
         raise ValueError("argument must be formated like so: day=<int>")
 
-def create_folder(folder_name: str) -> str:
-    if len(folder_name) == 1:
-      folder_name = "0"+folder_name
+def create_folder(year: str, day: str) -> str:
+    if len(day) == 1:
+      day = "0"+day
     cwd = os.getcwd()
-    target_dir = f"{cwd}/day-{folder_name}"
+    target_dir = f"{cwd}/{year}/day-{day}"
     print(f":creating folder='{target_dir}'")
     if not os.path.exists(target_dir):
-        os.mkdir(target_dir)
+        os.makedirs(target_dir)
     return target_dir
 
-def download_input(day: str) -> str:
-    url = f"{HOST}/{day}/input"
+def download_input(year: str, day: str) -> str:
+    url = f"{HOST}/{year}/day/{day}/input"
     print(f":downloading puzzle input from='{url}'")
     res = requests.get(url, cookies=dict(session=COOKIE))
     return res.text
@@ -49,9 +49,10 @@ def write_input_to_file(path: str, content: str) -> bool:
 
 
 if __name__ == "__main__":
-    day = parse_args()
-    path = create_folder(day)
-    content = download_input(day)
+    year, day = parse_args().split("/")
+    path = create_folder(year, day)
+    content = download_input(year, day)
     success = write_input_to_file(path, content)
     if not success:
         raise RuntimeError("couldn't write to file :(")
+
