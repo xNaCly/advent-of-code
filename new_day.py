@@ -38,7 +38,7 @@ def download_input(year: str, day: str) -> str:
     return res.text
 
 def write_input_to_file(path: str, content: str) -> bool:
-    file_path = f"{path}/input.txt"
+    file_path = f"{path}/i.txt"
     print(f":writing to file='{file_path}'")
     try:
         with open(file=file_path, mode="w", encoding="utf-8") as f:
