@@ -6,6 +6,9 @@ from cookie import COOKIE
 HOST = "https://adventofcode.com"
 
 def parse_args() -> str:
+    """
+    python3 new_day.py i=2022/2
+    """
     args = sys.argv # get cli arguments
 
     print(f":parsing args {args}")
@@ -19,7 +22,7 @@ def parse_args() -> str:
     if argument[0] == "i":
         return argument[1].strip()
     else:
-        raise ValueError("argument must be formated like so: day=<int>")
+        raise ValueError("argument must be formated like so: i=<year>/<day>")
 
 def create_folder(year: str, day: str) -> str:
     if len(day) == 1:
