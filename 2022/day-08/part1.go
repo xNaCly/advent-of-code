@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"strings"
 )
@@ -55,10 +54,6 @@ func Part(reader io.Reader) int {
 
 	m := make([][]int, rclen)
 
-	// TODO: this could work, idk
-	// its a square, so we calculate the trees at the edge, minus the 4 edges
-	// r += rclen*4 - 4
-
 	for i, l := range strings.Split(s, "\n") {
 		m[i] = make([]int, rclen)
 		for j, c := range l {
@@ -67,23 +62,18 @@ func Part(reader io.Reader) int {
 	}
 
 	for i := range m {
-		if i == 0 || i+1 == rclen {
-			// TODO: this was a continue
-			r++
+		if i == 0 || i+1 == len(m) {
+			r += len(m[i])
+			continue
 		}
 		for j := range m[i] {
-			if j == 0 || j+1 == rclen {
-				// TODO: this was a continue
+			if j == 0 || j+1 == len(m[i]) {
 				r++
 			} else if Visible(m, i, j) {
-				fmt.Print(m[i][j], " ")
 				r++
-			} else {
-				fmt.Print("x ")
 			}
 		}
-		fmt.Println()
 	}
 
-	return r - 1
+	return r
 }
