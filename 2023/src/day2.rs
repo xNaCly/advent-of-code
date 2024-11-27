@@ -57,8 +57,6 @@ fn part2(lines: Vec<String>) -> u128 {
 
 #[cfg(test)]
 mod tests {
-    use aoc::lines;
-
     use crate::day2;
 
     #[test]
@@ -70,12 +68,12 @@ Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
 Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green",
         );
-        assert_eq!(day2::part1(testin.lines().map(String::from).collect()), 8)
+        assert_eq!(day2::part1(aoc::lines_str(&testin)), 8)
     }
 
     #[test]
     fn day2_test_real() {
-        dbg!(day2::part1(lines("input/day2.txt")));
+        dbg!(day2::part1(aoc::lines_file("input/day2.txt")));
     }
 
     #[test]
@@ -96,6 +94,6 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green",
 
     #[test]
     fn day2_test_real_part2() {
-        dbg!(day2::part2(aoc::lines("input/day2.txt")));
+        dbg!(day2::part2(aoc::lines_file("input/day2.txt")));
     }
 }

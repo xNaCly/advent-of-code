@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 fn part1(lines: Vec<String>) -> u32 {
     lines
         .into_iter()
@@ -43,8 +41,6 @@ fn part2(lines: Vec<String>) -> u32 {
 
 #[cfg(test)]
 mod tests {
-    use aoc::lines;
-
     use crate::day1;
 
     #[test]
@@ -56,12 +52,12 @@ pqr3stu8vwx
 a1b2c3d4e5f
 treb7uchet",
         );
-        assert_eq!(day1::part1(testin.lines().map(String::from).collect()), 142)
+        assert_eq!(day1::part1(aoc::lines_str(&testin)), 142)
     }
 
     #[test]
     fn day1_test_real() {
-        dbg!(day1::part1(lines("input/day1.txt")));
+        dbg!(day1::part1(aoc::lines_file("input/day1.txt")));
     }
 
     #[test]
@@ -76,20 +72,11 @@ xtwone3four
 zoneight234
 7pqrstsixteen",
         );
-        assert_eq!(
-            day1::part2(
-                testin
-                    .lines()
-                    .filter(|l| !l.is_empty())
-                    .map(String::from)
-                    .collect()
-            ),
-            281
-        )
+        assert_eq!(day1::part2(aoc::lines_str(&testin)), 281)
     }
 
     #[test]
     fn day1_test_real_part2() {
-        dbg!(day1::part2(aoc::lines("input/day1.txt")));
+        dbg!(day1::part2(aoc::lines_file("input/day1.txt")));
     }
 }
