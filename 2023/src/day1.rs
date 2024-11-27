@@ -2,22 +2,19 @@ use std::collections::HashMap;
 
 fn part1(lines: Vec<String>) -> u32 {
     lines
-        .iter()
-        .map(|line| {
-            line.chars()
-                .filter(|c| c.is_ascii_digit())
-                .collect::<Vec<char>>()
-        })
-        .map(|digits| {
-            println!("{:?}", digits);
-            (digits.first().unwrap().to_digit(10).unwrap() * 10)
-                + digits.last().unwrap().to_digit(10).unwrap()
+        .into_iter()
+        .filter_map(|line| {
+            let nums = line
+                .chars()
+                .filter_map(|c| c.to_digit(10))
+                .collect::<Vec<u32>>();
+            Some(nums.first()? * 10 + nums.last()?)
         })
         .sum()
 }
 
 fn part2(lines: Vec<String>) -> u32 {
-    let name_to_digit: HashMap<&str, &str> = HashMap::from([
+    let pairs = vec![
         ("one", "1"),
         ("two", "2"),
         ("three", "3"),
@@ -27,15 +24,17 @@ fn part2(lines: Vec<String>) -> u32 {
         ("seven", "7"),
         ("eight", "8"),
         ("nine", "9"),
-    ]);
+        ("zero", "0"),
+    ];
     part1(
         lines
-            .iter()
+            .into_iter()
             .map(|l| {
-                let mut l = l.to_string();
-                for (key, value) in name_to_digit.iter() {
-                    l = l.replace(key, &format!("{key}{value}{key}"));
-                }
+                let mut l = l;
+                // this is inefficient and shitty, anyways it works
+                pairs.iter().for_each(|pair| {
+                    l = l.replace(pair.0, &format!("{}{}{}", pair.0, pair.1, pair.0));
+                });
                 l
             })
             .collect(),
@@ -44,6 +43,10 @@ fn part2(lines: Vec<String>) -> u32 {
 
 #[cfg(test)]
 mod tests {
+    use aoc::lines;
+
+    use crate::day1;
+
     #[test]
     fn day1_test() {
         use crate::day1;
@@ -58,14 +61,7 @@ treb7uchet",
 
     #[test]
     fn day1_test_real() {
-        use crate::day1;
-        use std::fs::File;
-        use std::io::{self, prelude::*, BufReader};
-        let file = File::open("./day01.txt").unwrap();
-        let r = BufReader::new(file);
-        let lines = r.lines().map(|l| l.unwrap()).collect::<Vec<_>>();
-        let out = day1::part1(lines);
-        println!("result={}", out)
+        dbg!(day1::part1(lines("input/day1.txt")));
     }
 
     #[test]
@@ -94,13 +90,6 @@ zoneight234
 
     #[test]
     fn day1_test_real_part2() {
-        use crate::day1;
-        use std::fs::File;
-        use std::io::{self, prelude::*, BufReader};
-        let file = File::open("./day01.txt").unwrap();
-        let r = BufReader::new(file);
-        let lines = r.lines().map(|l| l.unwrap()).collect::<Vec<_>>();
-        let out = day1::part2(lines);
-        println!("result={}", out)
+        dbg!(day1::part2(aoc::lines("input/day1.txt")));
     }
 }
