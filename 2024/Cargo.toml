@@ -5,3 +5,6 @@ edition = "2021"
 
 [dependencies]
 aoc = { path = "../aoc" }
+
+[lints]
+workspace = true

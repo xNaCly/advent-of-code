@@ -2,3 +2,4 @@ cookie.py
 __pycache__/
 *.txt
 target/
+.cookie

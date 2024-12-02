@@ -1,0 +1,11 @@
+[workspace]
+
+members = [
+    "aoc",
+    "2024",
+]
+
+resolver = "2"
+
+[workspace.lints.rust]
+dead_code = "allow"
